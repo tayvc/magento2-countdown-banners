@@ -1,0 +1,74 @@
+@import url("https://use.fontawesome.com/releases/v5.12.0/css/all.css");
+@font-awesome: "Font Awesome 5 Free";
+
+.icon-selector label {
+    font-family: @font-awesome;
+    font-weight: 900;
+}
+.code-inserts p {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.code-inserts-title {
+    border-bottom: 1px solid #ccc;
+    line-height: 1.4;
+    margin-bottom: 0;
+    padding: 14px 0 16px;
+    span {
+        font-size: 2rem;
+        font-weight: 400;
+    }
+}
+.code-text {
+    cursor: text !important;
+}
+.code-insert, .banner-preview {
+    label {
+        display: block;
+        margin-bottom: 5px;
+        padding-top: 5px;
+        font-size: 1.4rem;
+        font-weight: 600;
+        line-height: 3.2rem;
+    }
+    textarea {
+        opacity: inherit !important;
+    }
+}
+.admin__control-radio.admin__control-radio+label:before,
+.admin__control-radio:checked+label:after {
+    display: none;
+}
+fieldset.admin__field.icon-selector .admin__field-control {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.admin__field.admin__field-option~.admin__field-option {
+    margin-top: 0;
+}
+label.admin__field-label {
+    font-size: 24px;
+    padding-left: 0 !important;
+    transition: all .3s;
+    color: #ccc;
+    width: 42px;
+    text-align: center !important;
+}
+.admin__field.admin__field-option input[type='radio']:checked + label.admin__field-label, label.admin__field-label:hover {
+    color: #333
+}
+.admin__field-control .admin__field-note {
+    flex-basis: 100%;
+}
+.banner-preview {
+    display: none;
+}
+.banner-preview-box {
+    text-align: center;
+    height: 40px;
+    padding-top: 15px;
+}
+.banner-text {
+    font-size: large;
+}

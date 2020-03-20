@@ -1,0 +1,57 @@
+/* Countdown Banner Styles */
+@import url("https://use.fontawesome.com/releases/v5.12.0/css/all.css");
+
+.countdown-banner {
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 10px auto;
+    font-size: 28px;
+    transition: all .3s;
+}
+.countdown-banner i {
+    font-size: 28px;
+    margin: 0 25px;
+}
+.countdown-banner:hover  {
+    text-decoration: none; 
+    opacity: 0.9;
+}
+.banner-text {
+    display: flex; 
+    align-items: center;
+}
+.countdown-days.digit {
+    margin: 0 0 0 10px;
+    font-weight: bold;
+}
+.digit, .separator {
+    display: inline-flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+    line-height: 20px;
+}
+.digit {
+    width: 40px;
+}
+.digit:after {
+    font-size: 13px;
+    display: flex; 
+    flex-basis: 100%; 
+    justify-content: center; 
+}
+.countdown-days:after {
+    content: "DAYS"
+}
+.countdown-hours:after {
+    content: "HRS"
+}
+.countdown-minutes:after {
+    content: "MIN"
+}
+.countdown-seconds:after {
+    content: "SEC"
+}

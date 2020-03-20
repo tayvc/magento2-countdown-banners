@@ -1,0 +1,38 @@
+<?php
+$bannerId = $this->getRequest()->getParam('banner_id');
+if (isset($bannerId) && !empty($bannerId)): ?>
+    <div class="code-inserts">
+        <div class="code-inserts-title">
+            <span><?php echo __('Use Code Inserts'); ?></span>
+        </div>
+        <p><?php echo __('You can display this countdown banner on any page using the code below. You can include it in XML Code, CMS Content, or a PHTML File.'); ?></p>
+        <div class="code-insert">
+            <label for="xml-code"><?php echo __('XML Code'); ?></label>
+            <textarea id="xml-code" class="code-text" rows="9" cols="160" onclick="this.focus();this.select()" readonly="readonly">
+<referenceContainer name="content">
+    <block class="SFS\CountdownBanners\Block\Banner" name="countdown_banners_banner" template="SFS_CountdownBanners::banner.phtml">
+        <arguments>
+            <argument name="banner_id" xsi:type="string"><?php echo $bannerId; ?></argument>
+        </arguments>
+    </block>
+</referenceContainer>
+            </textarea>
+        </div>
+        <div class="code-insert">
+            <label for="cms-content"><?php echo __('CMS Content'); ?></label>
+            <textarea id="cms-content" class="code-text" rows="3" cols="160" onclick="this.focus();this.select()" readonly="readonly">
+{{block class="SFS\CountdownBanners\Block\Banner" template="SFS_CountdownBanners::banner.phtml" banner_id="<?php echo $bannerId; ?>"}}
+            </textarea>
+        </div>
+        <div class="code-insert">
+            <label for="phtml-file"><?php echo __('PHTML File'); ?></label>
+            <textarea id="phtml-file" class="code-text" rows="3" cols="160" onclick="this.focus();this.select()" readonly="readonly">
+<?php echo '<?php echo $this->getLayout()->createBlock("SFS\CountdownBanners\Block\Banner")->setBannerId('.$bannerId.')->setTemplate("SFS_CountdownBanners::banner.phtml")->toHtml(); ?>';?>
+            </textarea>
+        </div>
+
+    </div>
+<?php endif; ?>
+
+
+

@@ -1,0 +1,26 @@
+<head>
+    <link href="<?php echo $this->getAssetUrl('SFS_CountdownBanners::css/_banner.css'); ?>" type="text/css" rel="stylesheet" />
+</head>
+
+<?php
+//Get pre-defined banner ID from data
+$bannerId = $this->getData('banner_id');
+$this->setBannerId($bannerId);
+$banner = $this->getBanner($bannerId);
+?>
+
+<?php if ($banner->isActive()):
+    $linkClass = 'disabled';
+    $linkUrl = '#';
+    if ($banner->getLinkEnabled() && $banner->getLinkUrl()):
+        $linkClass = 'enabled';
+        $linkUrl = $banner->getLinkUrl();
+    endif; ?>
+    <a class="countdown-banner <?php echo $linkClass; ?>" href="<?php echo $linkUrl; ?>" style="background-color: <?php echo $banner->getBgColor(); ?>">
+        <?php echo $this->getBannerIcon($banner); ?>
+        <span class="banner-text" style="color: <?php echo $banner->getTextColor(); ?>"><?php echo $this->getBannerText($banner); ?></span>
+        <?php echo $this->getBannerIcon($banner); ?>
+    </a>
+<?php endif; ?>
+
+

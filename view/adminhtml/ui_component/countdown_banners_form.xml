@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">countdown_banners_form.banners_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Countdown Banner Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save" class="SFS\CountdownBanners\Block\Adminhtml\Banner\Edit\SaveButton"/>
+            <button name="delete" class="SFS\CountdownBanners\Block\Adminhtml\Banner\Edit\DeleteButton"/>
+            <button name="back" class="SFS\CountdownBanners\Block\Adminhtml\Banner\Edit\BackButton"/>
+            <button name="reset" class="SFS\CountdownBanners\Block\Adminhtml\Banner\Edit\ResetButton"/>
+        </buttons>
+        <namespace>countdown_banners_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>countdown_banners_form.banners_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="banners_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="countdown_banners/banner/save"/>
+        </settings>
+        <dataProvider class="SFS\CountdownBanners\Model\Banner\DataProvider" name="banners_form_data_source">
+            <settings>
+                <requestFieldName>banner_id</requestFieldName>
+                <primaryFieldName>banner_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <!-- general banner information -->
+    <fieldset name="general">
+        <settings>
+            <label translate="true">Banner Information</label>
+        </settings>
+        <!-- banner id -->
+        <field name="banner_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>banner_id</dataScope>
+            </settings>
+        </field>
+        <!-- banner name -->
+        <field name="name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="notice" xsi:type="string" translate="true">Name of the banner for display in admin portal only.</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Name</label>
+                <dataScope>name</dataScope>
+            </settings>
+        </field>
+        <!-- banner status (is_active) -->
+        <field name="is_active" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Enabled</label>
+                <dataScope>is_active</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <!-- display start date -->
+        <field name="display_start">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Display Start Date</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">display_start</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">Banner will be visible on front-end after this date and time.</item>
+                </item>
+            </argument>
+        </field>
+        <!-- display end date -->
+        <field name="display_end">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Display End Date</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">display_end</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">Date and time for banner to no longer display on front-end.</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <!-- banner display settings -->
+    <fieldset name="display">
+        <settings>
+            <label translate="true">Display Settings</label>
+        </settings>
+        <!-- banner text -->
+        <textarea name="text">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <cols>15</cols>
+                <rows>5</rows>
+                <label translate="true">Banner Text</label>
+                <dataScope>text</dataScope>
+            </settings>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="placeholder" xsi:type="string" translate="true">20% Off Everything! Offer ends in {{timer}}</item>
+                    <item name="notice" xsi:type="string" translate="true">Use {{timer}} where you would like the countdown timer to appear.</item>
+                    <item name="additionalClasses" xsi:type="string">update-preview</item>
+                </item>
+            </argument>
+        </textarea>
+        <!-- background color -->
+        <colorPicker name="bg_color" class="Magento\Ui\Component\Form\Element\ColorPicker" component="Magento_Ui/js/form/element/color-picker">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string">update-preview</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Background Color</label>
+                <elementTmpl>ui/form/element/color-picker</elementTmpl>
+                <colorFormat>rgb</colorFormat>
+                <colorPickerMode>full</colorPickerMode>
+                <dataScope>bg_color</dataScope>
+            </settings>
+        </colorPicker>
+        <!-- text color -->
+        <colorPicker name="text_color" class="Magento\Ui\Component\Form\Element\ColorPicker" component="Magento_Ui/js/form/element/color-picker">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string">update-preview</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Text Color</label>
+                <elementTmpl>ui/form/element/color-picker</elementTmpl>
+                <colorFormat>rgb</colorFormat>
+                <colorPickerMode>full</colorPickerMode>
+                <dataScope>text_color</dataScope>
+            </settings>
+        </colorPicker>
+        <!-- icon selector -->
+        <radioset name="icon">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="notice" xsi:type="string" translate="true">Select an icon to display at the beginning and end of your banner text.</item>
+                    <item name="additionalClasses" xsi:type="string">icon-selector update-preview</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">icon</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Icon</label>
+                <options>
+                    <option name="0" xsi:type="array">
+                        <item name="value" xsi:type="string">dollar-sign</item>
+                        <item name="label" xsi:type="string">&#xf155;</item>
+                    </option>
+                    <option name="1" xsi:type="array">
+                        <item name="value" xsi:type="string">star</item>
+                        <item name="label" xsi:type="string">&#xf005;</item>
+                    </option>
+                    <option name="2" xsi:type="array">
+                        <item name="value" xsi:type="string">bolt</item>
+                        <item name="label" xsi:type="string">&#xf0e7;</item>
+                    </option>
+                    <option name="3" xsi:type="array">
+                        <item name="value" xsi:type="string">smile</item>
+                        <item name="label" xsi:type="string">&#xf118;</item>
+                    </option>
+                    <option name="4" xsi:type="array">
+                        <item name="value" xsi:type="string">glass-cheers</item>
+                        <item name="label" xsi:type="string">&#xf79f;</item>
+                    </option>
+                    <option name="5" xsi:type="array">
+                        <item name="value" xsi:type="string">tree</item>
+                        <item name="label" xsi:type="string">&#xf1bb;</item>
+                    </option>
+                    <option name="6" xsi:type="array">
+                        <item name="value" xsi:type="string">gift</item>
+                        <item name="label" xsi:type="string">&#xf06b;</item>
+                    </option>
+                    <option name="7" xsi:type="array">
+                        <item name="value" xsi:type="string">candy-cane</item>
+                        <item name="label" xsi:type="string">&#xf786;</item>
+                    </option>
+                    <option name="8" xsi:type="array">
+                        <item name="value" xsi:type="string">snowflake</item>
+                        <item name="label" xsi:type="string">&#xf2dc;</item>
+                    </option>
+                    <option name="9" xsi:type="array">
+                        <item name="value" xsi:type="string">snowman</item>
+                        <item name="label" xsi:type="string">&#xf7d0;</item>
+                    </option>
+                    <option name="10" xsi:type="array">
+                        <item name="value" xsi:type="string">spider</item>
+                        <item name="label" xsi:type="string">&#xf717;</item>
+                    </option>
+                    <option name="11" xsi:type="array">
+                        <item name="value" xsi:type="string">ghost</item>
+                        <item name="label" xsi:type="string">&#xf6e2;</item>
+                    </option>
+                    <option name="12" xsi:type="array">
+                        <item name="value" xsi:type="string">heart</item>
+                        <item name="label" xsi:type="string">&#xf004;</item>
+                    </option>
+                    <option name="13" xsi:type="array">
+                        <item name="value" xsi:type="string">birthday-cake</item>
+                        <item name="label" xsi:type="string">&#xf1fd;</item>
+                    </option>
+                    <option name="14" xsi:type="array">
+                        <item name="value" xsi:type="string">flag-usa</item>
+                        <item name="label" xsi:type="string">&#xf74d;</item>
+                    </option>
+                    <option name="15" xsi:type="array">
+                        <item name="value" xsi:type="string">fire</item>
+                        <item name="label" xsi:type="string">&#xf06d;</item>
+                    </option>
+                    <option name="16" xsi:type="array">
+                        <item name="value" xsi:type="string">sun</item>
+                        <item name="label" xsi:type="string">&#xf185;</item>
+                    </option>
+                    <option name="17" xsi:type="array">
+                        <item name="value" xsi:type="string">moon</item>
+                        <item name="label" xsi:type="string">&#xf186;</item>
+                    </option>
+                    <option name="18" xsi:type="array">
+                        <item name="value" xsi:type="string">umbrella-beach</item>
+                        <item name="label" xsi:type="string">&#xf5ca;</item>
+                    </option>
+                    <option name="19" xsi:type="array">
+                        <item name="value" xsi:type="string">ice-cream</item>
+                        <item name="label" xsi:type="string">&#xf810;</item>
+                    </option>
+                    <option name="20" xsi:type="array">
+                        <item name="value" xsi:type="string">rainbow</item>
+                        <item name="label" xsi:type="string">&#xf75b;</item>
+                    </option>
+                    <option name="21" xsi:type="array">
+                        <item name="value" xsi:type="string">paw</item>
+                        <item name="label" xsi:type="string">&#xf1b0;</item>
+                    </option>
+                    <option name="22" xsi:type="array">
+                        <item name="value" xsi:type="string">cat</item>
+                        <item name="label" xsi:type="string">&#xf6be;</item>
+                    </option>
+                    <option name="23" xsi:type="array">
+                        <item name="value" xsi:type="string">dog</item>
+                        <item name="label" xsi:type="string">&#xf6d3;</item>
+                    </option>
+                    <option name="24" xsi:type="array">
+                        <item name="value" xsi:type="string">cocktail</item>
+                        <item name="label" xsi:type="string">&#xf561;</item>
+                    </option>
+                    <option name="25" xsi:type="array">
+                        <item name="value" xsi:type="string">ribbon</item>
+                        <item name="label" xsi:type="string">&#xf4d6;</item>
+                    </option>
+                    <option name="26" xsi:type="array">
+                        <item name="value" xsi:type="string">graduation-cap</item>
+                        <item name="label" xsi:type="string">&#xf19d;</item>
+                    </option>
+                    <option name="27" xsi:type="array">
+                        <item name="value" xsi:type="string">book</item>
+                        <item name="label" xsi:type="string">&#xf02d;</item>
+                    </option>
+                    <option name="28" xsi:type="array">
+                        <item name="value" xsi:type="string">dumbbell</item>
+                        <item name="label" xsi:type="string">&#xf44b;</item>
+                    </option>
+                    <option name="29" xsi:type="array">
+                        <item name="value" xsi:type="string">gem</item>
+                        <item name="label" xsi:type="string">&#xf3a5;</item>
+                    </option>
+                    <option name="30" xsi:type="array">
+                        <item name="value" xsi:type="string">gamepad</item>
+                        <item name="label" xsi:type="string">&#xf11b;</item>
+                    </option>
+                    <option name="31" xsi:type="array">
+                        <item name="value" xsi:type="string">laptop</item>
+                        <item name="label" xsi:type="string">&#xf109;</item>
+                    </option>
+                    <option name="32" xsi:type="array">
+                        <item name="value" xsi:type="string">paint-brush</item>
+                        <item name="label" xsi:type="string">&#xf1fc;</item>
+                    </option>
+                    <option name="33" xsi:type="array">
+                        <item name="value" xsi:type="string">palette</item>
+                        <item name="label" xsi:type="string">&#xf53f;</item>
+                    </option>
+                    <option name="34" xsi:type="array">
+                        <item name="value" xsi:type="string">magic</item>
+                        <item name="label" xsi:type="string">&#xf0d0;</item>
+                    </option>
+                    <option name="35" xsi:type="array">
+                        <item name="value" xsi:type="string">money-bill-wave</item>
+                        <item name="label" xsi:type="string">&#xf53a;</item>
+                    </option>
+                    <option name="36" xsi:type="array">
+                        <item name="value" xsi:type="string">shopping-basket</item>
+                        <item name="label" xsi:type="string">&#xf291;</item>
+                    </option>
+                    <option name="37" xsi:type="array">
+                        <item name="value" xsi:type="string">shopping-cart</item>
+                        <item name="label" xsi:type="string">&#xf07a;</item>
+                    </option>
+                    <option name="38" xsi:type="array">
+                        <item name="value" xsi:type="string">shopping-bag</item>
+                        <item name="label" xsi:type="string">&#xf290;</item>
+                    </option>
+                    <option name="39" xsi:type="array">
+                        <item name="value" xsi:type="string">hanukiah</item>
+                        <item name="label" xsi:type="string">&#xf6e6;</item>
+                    </option>
+                </options>
+            </settings>
+        </radioset>
+        <!-- icon color -->
+        <colorPicker name="icon_color" class="Magento\Ui\Component\Form\Element\ColorPicker" component="Magento_Ui/js/form/element/color-picker">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string">update-preview</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Icon Color</label>
+                <elementTmpl>ui/form/element/color-picker</elementTmpl>
+                <colorFormat>rgb</colorFormat>
+                <colorPickerMode>full</colorPickerMode>
+                <dataScope>icon_color</dataScope>
+            </settings>
+        </colorPicker>
+        <!-- link enabled -->
+        <field name="link_enabled" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="number">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">countdown_banners_form.countdown_banners_form.display.link_url</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="number">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">countdown_banners_form.countdown_banners_form.display.link_url</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">Clicking on the banner will link to a separate page.</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Link to Page</label>
+                <dataScope>link_enabled</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <!-- banner link URL -->
+        <field name="link_url" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Link URL</label>
+                <dataScope>link_url</dataScope>
+            </settings>
+        </field>
+        <!-- banner preview -->
+        <htmlContent name="banner_preview">
+            <settings>
+                <additionalClasses>
+                    <class name="banner-preview">true</class>
+                </additionalClasses>
+            </settings>
+            <block name="banner_preview" class="SFS\CountdownBanners\Block\Adminhtml\Banner\Edit\Preview">
+                <arguments>
+                    <argument name="template" xsi:type="string">SFS_CountdownBanners::banner_preview.phtml</argument>
+                </arguments>
+            </block>
+        </htmlContent>
+    </fieldset>
+
+    <!-- countdown timer settings -->
+    <fieldset name="timer">
+        <settings>
+            <label translate="true">Countdown Timer</label>
+        </settings>
+        <!-- countdown timer enabled -->
+        <field name="timer_enabled" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="number">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">countdown_banners_form.countdown_banners_form.timer.timer_start</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">countdown_banners_form.countdown_banners_form.timer.timer_end</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="number">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">countdown_banners_form.countdown_banners_form.timer.timer_start</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">countdown_banners_form.countdown_banners_form.timer.timer_end</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">Display a timer in the banner counting down until the provided timer end date.</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Enable Countdown Timer</label>
+                <dataScope>timer_enabled</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <!-- timer start date -->
+        <field name="timer_start">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Timer Start Date</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">timer_start</item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <!-- timer end date -->
+        <field name="timer_end">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Timer End Date</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">timer_end</item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <!-- banner code inserts -->
+    <htmlContent name="code_inserts">
+        <settings>
+            <additionalClasses>
+                <class name="code-inserts">true</class>
+            </additionalClasses>
+        </settings>
+        <block name="banner_code_inserts" class="SFS\CountdownBanners\Block\Adminhtml\Banner\Edit\CodeInserts">
+            <arguments>
+                <argument name="template" xsi:type="string">SFS_CountdownBanners::code_inserts.phtml</argument>
+            </arguments>
+        </block>
+    </htmlContent>
+</form>
